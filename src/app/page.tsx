@@ -1,10 +1,12 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+import AddTodo from "@/components/AddTodo";
+import Todos from "@/components/Todos";
 
 export default function Home() {
   return (
-    <main className={styles.main}>
-      <div>Hello</div>
+    <main>
+      <h2>Make your todos...</h2>
+      <AddTodo />
+      <Todos />
     </main>
   )
 }
