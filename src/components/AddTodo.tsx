@@ -18,7 +18,6 @@ const AddTodo = () => {
     <form onSubmit={handleFormSubmit}>
         <input 
             type="text" 
-            name="" 
             placeholder='Enter task...'
             onChange={event => setTodo(event.target.value)}
             value={todo} />

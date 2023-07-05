@@ -12,6 +12,8 @@ export type Todo = {
 export type TodosContext = {
     todos: Todo[];
     handleAddTodo: (task: string) => void;
+    toggleTodoAsCompleted: (id: string) => void;
+    handleTodoDelete: (id: string) => void;
 }
 
 
@@ -24,7 +26,7 @@ export const TodosProvider = ({ children }: { children: ReactNode }) => {
     const handleAddTodo = (task: string) => {
 
         setTodos(prev => {
-            const newTodo = [{
+            const newTodo: Todo[] = [{
                 id: Math.random().toString(),
                 task,
                 completed: false,
@@ -37,8 +39,27 @@ export const TodosProvider = ({ children }: { children: ReactNode }) => {
         
     }
 
+    const toggleTodoAsCompleted = (id: string) => {
+        setTodos((prev) => {
+            const newTodo = prev.map((task) => {
+                if(task.id === id) {
+                    return {...task, completed: !task.completed}
+                }
+                return task
+            })
+            return newTodo
+        })
+    }
+
+    const handleTodoDelete = (id: string) => {
+        setTodos((prev) => {
+            const newTodo = prev.filter((task) => (task.id !== id))
+            return newTodo
+        })
+    }
+
     return (
-        <todosContext.Provider value={{todos, handleAddTodo}}>
+        <todosContext.Provider value={{todos, handleAddTodo, toggleTodoAsCompleted, handleTodoDelete}}>
             {children}
         </todosContext.Provider>
     )
